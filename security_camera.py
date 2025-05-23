@@ -3,8 +3,18 @@ import cv2
 import numpy as np
 import time
 from tflite_runtime.interpreter import Interpreter
-from my_server.notify_discord import send_image_to_discord
-from utils import check_tf_version
+from notify_discord import send_image_to_discord
+
+
+def check_tf_version(output_details):
+   outname = output_details[0]['name']
+   if 'StatefulPartitionedCall' in outname:  # TF2 model
+       boxes_idx, classes_idx, scores_idx = 1, 3, 0
+   else:  # TF1 model
+       boxes_idx, classes_idx, scores_idx = 0, 1, 2
+
+
+   return boxes_idx, classes_idx, scores_idx
 
 #Load model
 interpreter = Interpreter("models/detect.tflite")
