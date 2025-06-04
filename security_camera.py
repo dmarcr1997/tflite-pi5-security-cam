@@ -33,8 +33,8 @@ if labels[0] == '???':
        labels.pop(0)
 
 #start camera   
-frame_height = 1640
-frame_width = 1232
+frame_height = 1024
+frame_width = 600
 picam2 = Picamera2()
 picam2.preview_configuration.main.size = (frame_height, frame_width)
 picam2.preview_configuration.main.format = "RGB888"
